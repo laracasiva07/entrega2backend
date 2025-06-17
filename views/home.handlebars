@@ -1,6 +1,6 @@
 <h1>Lista de productos</h1>
 
-{{#if products.length}}
+{{#if products}}
     <ul>
         {{#each products}}
         <li>
@@ -11,3 +11,7 @@
  {{else}}
     <p>No hay productos disponibles</p>
 {{/if}}
+
+<a href="/products/start">
+    <button>Entrar a la tienda 🛒</button>
+</a>

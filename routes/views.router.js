@@ -1,18 +1,20 @@
 import { Router } from 'express';
+import ProductModel from '../models/Products.js';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  const products = [
-    { title: 'Mouse', description: 'Mouse gamer', price: 5000 },
-    { title: 'Teclado', description: 'Teclado mecánico', price: 8000 },
-    { title: 'Monitor', description: 'Monitor 24"', price: 30000 }
-  ];
-  res.render('home', {products}); // Esta vista la vamos a crear luego
+router.get('/', async (req, res) => {
+  try {
+    const products = await ProductModel.find().lean(); // Trae los productos como objetos simples
+    res.render('home', { products });
+  } catch (error) {
+    console.error('Error al obtener productos:', error);
+    res.status(500).send('Error al obtener productos');
+  }
 });
 
 router.get('/realtimeproducts', (req, res) => {
-  res.render('realTimeProducts'); // Esta vista también
+  res.render('realTimeProducts'); 
 });
 
 export default router;
